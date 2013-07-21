@@ -1,9 +1,10 @@
+
 import json
 import requests
-import pprint
+from printResult import *			# function for printing 
 
 '''
-AUTOMATIC JSON SEARCH OF ARCHIVE.ORG
+AUTOMATIC SEARCH OF ARCHIVE.ORG
 Jeff Thompson | 2013 | www.jeffreythompson.org
 
 Automatically search and return metadata for items in Archive.org's vast
@@ -53,35 +54,9 @@ headers = { 'Content-type': 'application/json' }
 response = requests.post('http://archive.org/advancedsearch.php', params=data, headers=headers)
 
 # convert to dictionary (easier to parse)
-output = json.loads(response.text)
+searchResults = json.loads(response.text)
 
-# print the results
-print 'URL:         ' + response.url + '\n'
-for item in output['response']['docs']:
-	print 'Title:       ' + item['title']																# object title
-	print 'Format:     ',																								# what format is the object in
-	for format in item['format']:
-		print format + ',',
-	print ''
-	print 'Collection: ',																			  				# which collection is it in
-	for collection in item['collection']:
-		print collection + ',',
-	print ''
-	print 'URL:         www.archive.org/details/' + item['identifier']	# the URL for the listing
-	
-	# get metadata (also try things like PPI, camera, etc)
-	r = requests.post('http://archive.org/metadata/' + item['identifier'])
-	o = json.loads(r.text)
-	print 'Media type:  ' + o['metadata']['mediatype']	
-
-	# get file URL
-	print '\nFile URLs:'
-	for file in o['files']:
-		print file['format'] + ' [http://archive.org/download/' + item['identifier'] + '/' + file['name'] + ']'
-	print ''
-	
-	# divider between listings
-	print '- ' * 36
-	
-# done!
-print ''
+# print details (VERY hackable and extendable)
+print 'Search URL:  ' + response.url + '\n'			# resulting search URL (can also be pasted into your browser)
+print ('- ' * 36) + '\n'												# divider between listings
+printResult(searchResults)											# print using separate function to parse the resulting dict
