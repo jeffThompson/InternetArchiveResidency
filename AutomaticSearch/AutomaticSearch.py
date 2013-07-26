@@ -65,9 +65,13 @@ searchResults = json.loads(response.text)
 print 'Search URL:  ' + response.url + '\n'			# resulting search URL (can also be pasted into your browser)
 print ('- ' * 36) + '\n'												# divider between listings
 
-for item in searchResults['response']['docs']:		# iterate details
-	printDetails(item)																# print using separate function to parse the resulting dict
+# iterate details
+for item in searchResults['response']['docs']:
+	
+	# print using separate function to parse the resulting dict
+	printDetails(item)
 
+	# get and print metadata (includes file URLs)
 	metadataRequest = requests.post('http://archive.org/metadata/' + item['identifier'])
 	meta = json.loads(metadataRequest.text)
 	printMetadata(meta, item['identifier'])
