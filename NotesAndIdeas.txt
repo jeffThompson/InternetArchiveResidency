@@ -1,13 +1,56 @@
-NOTES AND IDEAS:
+NOTES AND IDEAS
 
-+ All texts ordered by brightness of facsimile
-		- refine by a certain word (perhaps 'brightness'?)
+- - - - - - - - 
+
+CURATORIAL:
+
++ all texts ordered by brightness of facsimile
+		- refine by a certain word (perhaps 'brightness')
+				- try: "brightness AND mediatype:texts OR text OR Text" in advanced search to get CSV files of identifiers
 
 + "Search Query as Curatorial Rubric"
+		- each post titled by the search query?
 
-+ 
++ every time the page is loaded it is re-curated with different posts (unstable platform, always re-organized)
+		- lots of pre-curated content?
+		- runs a python script (or JS?) to make a brand new one each time
 
-+ Search cross-references newspapers? Google?
-		- http://blog.blprnt.com/source-code-tutorial
++ much larger post than could ever be done by hand - curating thousands of items into little tiny thumbnails
+		- how then does this become a meaningful experience, not just reorganizing the archive itself
 
-+ 
++ search cross-references newspapers? Google?
+		- NYT/Guardian API: http://blog.blprnt.com/source-code-tutorial
+
++ tag posts with all metadata from the Archive (using similar system for Comps on L&O)
+
++ pairs
+		- different media? same?
+		- video with text?
+		- forms a kind of narrative?
+		- built from skeletal structure?
+
++ curate by download count
+		- work with the least-downloaded materials?
+
+- - - - - - - - 
+
+TECHNICAL:
++ get list of IDs for bulk download
+		- advanced search terms: brightness AND mediatype:texts OR text OR Text AND format:pdf
+		- search: http://archive.org/advancedsearch.php
+		- download as CSV
+
++ bulk download using wget
+		- some details here (great starting point):
+				http://blog.archive.org/2012/04/26/downloading-in-bulk-using-wget
+		- wget command being used:
+				wget -r -H -nc -np -nH --cut-dirs=3 -e robots=off -l1 -P 'downloadedFiles/' -i itemlist.txt -A .pdf -B 'http://archive.org/download/'
+		- changing --cut-dirs=3 to --cut-dirs=2 will download files into unique directories (which might be desired)
+		- command -P 'downloadedFiles/' saves into a folder called 'downloadedFiles'
+
++ ImageMagick to convert PDF to images
+		- command: convert -density 150 -resize 800x "input.pdf" "output.png"
+		- density = resolution
+		- if multi-page, files will be titled output-0.png, output-1.png, etc
+
+- - - - - - - - 
