@@ -1,12 +1,52 @@
 NOTES AND IDEAS
 
-- - - - - - - - 
+- - - - - - - -
 
-CURATORIAL:
+TO TRY:
+
++ text >> auto-summary >> search term >> text >> repeat
+		- start with the most-downloaded text
+
++ first page of PDF with Google's first 'similar image' result
+
++ search cross-references newspapers? Google?
+		- NYT/Guardian API: http://blog.blprnt.com/source-code-tutorial
+
++ top hit (or most viewed, or most rated, etc) in all media of a search term
+		- ex: most downloaded item with the term "download"
 
 + all texts ordered by brightness of facsimile
 		- refine by a certain word (perhaps 'brightness')
 				- try: "brightness AND mediatype:texts OR text OR Text" in advanced search to get CSV files of identifiers
+
++ brightest text by "brightness" search, darkest by "darkest"
+
++ curate by download count
+		- work with the least-downloaded materials?
+
+- - - - - - - - 
+
+DESIGN IDEAS/THOUGHTS:
+
++ grid of shows:
+		- intro post with title of idea, brief synopsis, link to search query if applicable
+		- each post a square image, then descriptive link below
+
++ random placement and overlap 
+		- would have to make using JS/JQuery not PHP
+		- CRAZY looking and inpenetrable
+		- and overload of materials with endless scrolling
+		- rearrange if you scroll past?
+		- slowly rotating?
+		
+		<script>
+		
+
+- - - - - - - - 
+
+CURATORIAL IDEAS/THOUGHTS:
+
++ "algorithm" means instructions, a recipe: need not be digital
 
 + "Search Query as Curatorial Rubric"
 		- each post titled by the search query?
@@ -29,12 +69,14 @@ CURATORIAL:
 		- forms a kind of narrative?
 		- built from skeletal structure?
 
-+ curate by download count
-		- work with the least-downloaded materials?
-
 - - - - - - - - 
 
 TECHNICAL:
+
++ delete all posts from Tumblr
+	- http://devlab.ca/2013/08/delete-all-of-your-tumblr-posts-without-closing-your-blog/
+	- http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/#.UjcOKLzfZBG
+	
 + get list of IDs for bulk download
 		- advanced search terms: brightness AND mediatype:texts OR text OR Text AND format:pdf
 		- search: http://archive.org/advancedsearch.php
