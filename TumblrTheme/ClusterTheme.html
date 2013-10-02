@@ -1,31 +1,60 @@
-	<!DOCTYPE html>
-	<html lang="{block:English}en{/block:English}{block:French}fr{/block:French}{block:German}de{/block:German}{block:Japanese}ja{/block:Japanese}{block:Italian}it{/block:Italian}{block:Spanish}es{/block:Spanish}{block:Polish}pl{/block:Polish}">
+<!DOCTYPE html>
+<html lang="{block:English}en{/block:English}{block:French}fr{/block:French}{block:German}de{/block:German}{block:Japanese}ja{/block:Japanese}{block:Italian}it{/block:Italian}{block:Spanish}es{/block:Spanish}{block:Polish}pl{/block:Polish}">
 
-	<head>
+	<!--
+		"CLUSTER" TUMBLR THEME
+		Jeff Thompson | 2013 | www.jeffreythompson.org
+	
+		A totally eff'd up Tumblr theme :)
+		
+		Randomly places and rotates (nearly) all page elements. Like and reblog buttons
+		are not placed with their posts allowing for chance-based social interaction. Interface
+		is click-and-drag for remixing the layout (and easier access to hidden items).
+		
+		NOTES && CAVEATS
+		+ It seems that videos don't work quite right...
+		+ Photosets will work, but will be a massive stack - better to post individually
+		
+		CUSTOM CSS
+		+ Insert custom CSS modifications in the Appearance editor, or after the theme CSS
+		
+		THANK YOU
+		+ Custom like button via:
+				http://like-button.tumblr.com
+		+ Open Sans typeface via Google via Adobe
+				http://www.google.com/fonts/specimen/Open+Sans
+		+ Creating Tumblr pages (for some reason not in the main Tumblr docs)
+				http://tumblring.net/tumblr-pages				
+		
+		TO DO:
+		+ Fix page width problems (keep everything onscreen horizontally)
+		+ Better test posts (more carefully curated)
+		+ How to release a Tumblr theme?
+		+ Fix video resize problems
+			- http://jsfiddle.net/QKQ2g
+		+ Add keyboard mode
+			- how to enable options in theme
+			- O = rotate slowly, G = gravity (fall to bottom), R = randomize, L = like all posts on page, etc
+			- combination of letters, like a cheat code? better than triggering random events by accident?
 
-		<!--
-			CLUSTER TUMBLR THEME
-			Jeff Thompson | 2013 | www.jeffreythompson.org
-		
-			A totally fucked Tumblr theme :)
-		
-			Custom like button via:
-			http://like-button.tumblr.com
-		-->
-		
+	-->
+
+	<head>		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="viewport" content="width=device-width">
 
 		<title>{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}</title>
-
 		{block:Description}<meta name="description" content="{MetaDescription}">{/block:Description}
 
 		<link rel="apple-touch-icon" href="{PortraitURL-128}">
 		<link rel="shortcut icon" href="{Favicon}">
 		<link rel="alternate" type="application/rss+xml" href="{RSS}">
+		
+		<!-- ADD OPEN SANS -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-		<!-- NORMALIZE CSS - include your own after this, or import an external stylesheet -->
+		<!-- NORMALIZE CSS -->
 		<link rel="stylesheet" href="http://static.tumblr.com/cqczc5x/kYdmihjuj/normalize.css" type="text/css" media="all">
 		<style type="text/css">
 			img, video, object, embed {
@@ -50,14 +79,16 @@
 			.search_query {}
 			.read_more_container a {}
 		
-			/* theme CSS */
+			/* THEME CSS */
 			html, body {
 				margin: 0;
 				padding: 0;
 				background-color: white;
-				font-family: Helvetica, Arial, sans-serif;
+				font-family: "Open Sans", Helvetica, Arial, sans-serif;
+				font-size: 14px;
 			}
-		
+			
+			/* links */
 			a, a:link {
 				color: rgb(255,150,0);
 				text-decoration: none;
@@ -68,6 +99,7 @@
 				text-decoration: none;
 				background-color: rgb(255,255,0);
 				opacity: 0.7;
+				cursor: pointer;
 			}
 			a:visited {
 				color: rgb(50,100,0);
@@ -75,31 +107,38 @@
 				opacity: 0.7;
 			}
 			.permalinkImg {
-				opacity: 1.0 !important;	/* override link opacity */
+				opacity: 1.0 !important;			/* override link opacity */
 				background-color: none !important;
 			}
 		
+			/* header/title */
 			#header {
-				width: 40%;
+				opacity: 0.3; 
+			}
+			#header:hover {
+				opacity: 1.0;
 			}
 			#blogTitle {			
-				font-size: 100px;
+				font-size: 160px;
+				margin: 0;
 			}
 		
+			/* posts */
 			article {
-				width: 400px;
+				width: 400px;		/* temporarily set, randomly set in JS later */
 				opacity: 0.7;
 			}
 			article:hover {
 				opacity: 1.0;
 			}
-			article img {
+			article img, article iframe, article object {
 				width: 100%;
 				height: auto;
 			}
-				
+			
+			/* pagination */
 			a.jump-page, .next, .prev {
-				font-size: 144px;
+				font-size: 300px;
 			}
 			span.current-page {
 				font-size: 72px;
@@ -107,6 +146,7 @@
 				opacity: 0.3;
 			}
 		
+			/* tags */
 			.tags ul {
 				list-style: none;
 				margin: 0;
@@ -122,23 +162,30 @@
 				content: "";
 			}
 		
+			/* tag and search result text */
 			#tagResults, #searchResults {
 				font-size: 72px;
 				color: rgb(0,50,255);
 				opacity: 0.7;
 			}
+			.search_query:before, .tag:before {
+				content: '"';
+			}
+			.search_query:after, .tag:after {
+				content: '"';
+			}
 			
+			/* text posts */
 			.text, .quote {
-				padding: 20px;
+				padding: 0 20px 20px 0;		/* hard top/left edge */
 				background-color: rgba(200,200,255,0.4);
 			}
-		
-			.quote, .text h3 {
+			.quote, .text h3, .link h3 {
 				font-size: 72px;
 				opacity: 0.7;
 				margin-bottom: 0;
 			}
-			.quote:hover, .text:hover{
+			.quote:hover, .text:hover, .link:hover {
 				background-color: rgb(255,255,0);
 			}
 			.caption {
@@ -146,47 +193,109 @@
 				color: black;
 			}
 		
+			/* like and reblog */
 			.my-like, .reblog {
 				font-size: 144px;
 				color: rgb(255,150,0);
-				cursor:pointer;
 				display:inline-block;
 				vertical-align: top;
 				background: none;
+				opacity: 0.7;
 			}
 			.my-liked, .my-like:hover, .reblog:hover {
 				font-size: 144px;
 				color: rgb(150,0,0);
-				cursor:pointer;
 				display:inline-block;
 				vertical-align: top;
+				opacity: 0.7;
+				cursor: pointer;
 			}
 			.my-like:hover, .reblog:hover {
 				background-color: rgb(255,255,0);
+				cursor: pointer;
+			}
+			
+			/* search */
+			#search {
+				padding: 10px;		/* gives us some room to click-and-drag */
+			}
+			#submit {
+				font-size: 12px;
+			}
+			
+			/* pages links */
+			#pageLinks ul {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+			}
+			.pageLink {
+				display: inline;
+				font-size: 48px;
 			}
 		
-			/* insert any custom CSS here! */
-		
+			/* INSERT ANY CUSTOM CSS HERE! (or in the Appearance editor) */
+			{CustomCSS}
 		</style>
 
-		<!-- import JQuery -->
+		<!-- import JQuery and JQuery UI -->
 		<script src="http://www.jeffreythompson.org/javascript/jquery.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-		<!-- fuck it up :) -->
+		<!-- EFF IT UP :) -->
 		<script>
 			$(document).ready(function() {
-		
-				var x = 0;
-				var y = 0;
-				var rot = 0;
+
+				// global position and dimension variables
 				var width = $(window).width();
-				var height = (Math.random() * 3000) + 1000;		// between 1k - 8k pixels high	
-		
-				function randomPlacement(id) {
-					
+				var height = (Math.random() * 3000) + 1000;		// set window to 1k - 4k pixels high	
+				var x, y, rot;																// placement variables
+				
+				// set item to random placement and rotation
+				// iterates all instances of the argument and places in random spot
+				// optional argument places them randomly along x-coord but in order vertically
+				function randomPlacementAndRotation(id, verticalOrder) {
+					$(id).each(function(i) {
+						if (typeof verticalOrder == "undefined") y = (Math.random() * height);
+						else y = (height / numPages) * i;
+						x = (Math.random() * width);
+						rot = (Math.random() * 360);						// may be interesting without
+						
+						{block:PermalinkPage}										// if permalink page, no rotation
+							if (id == "article") rot = 0;
+						{/block:PermalinkPage}
+						
+						$(this).css ({
+							'position': 'absolute',
+							'top': y + 'px',
+							'left': x + 'px',
+							'transform': 'rotate(' + rot + 'deg)',
+							'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
+							'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
+						});
+					});
 				}
 				
+				// set item to random width
+				function randomWidth(id) {
+					$(id).each(function() {
+						var w = map(Math.random(), 0.0, 1.0, width/10, width/3);
+						
+						{block:PermalinkPage}		// if permalink page, make larger and not random size
+							w = width * 0.7;
+						{/block:PermalinkPage}
+						
+						$(this).css({
+							'width': w + 'px',
+						});
+					});
+				}
+				
+				// map number to new range
+				function map(input, inputMin, inputMax, outputMin, outputMax) {
+					return (((input - inputMin) * (outputMax - outputMin)) / (inputMax - inputMin)) + outputMin;
+				}
+
 				// random page height
 				$("#wrapper").css ({
 					'width': width + 'px',
@@ -194,182 +303,57 @@
 				});
 			
 				// blog title and description
-				x = (Math.random() * width);
-				y = (Math.random() * height);
-				rot = (Math.random() * 360);	// may be interesting without
-				$("#blogTitle").css ({
-					'position': 'absolute',
-					'top': y + 'px',
-					'left': x + 'px',
-					'transform': 'rotate(' + rot + 'deg)',
-					'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-					'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-				});
-				$("#blogDescription").css ({
-					'position': 'absolute',
-					'top': y + 'px',
-					'left': x + 'px',
-					'transform': 'rotate(' + rot + 'deg)',
-					'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-					'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-				});
-			
-				// search form
-				x = (Math.random() * width);
-				y = (Math.random() * height);
-				rot = (Math.random() * 360);
-				$("form#search").css ({
-					'position': 'absolute',
-					'top': y + 'px',
-					'left': x + 'px',
-					'transform': 'rotate(' + rot + 'deg)',
-					'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-					'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-				});
-		
-				// randomize post placement
-				$("article").each(function() {
-					x = (Math.random() * width);
-					y = (Math.random() * (height));
-					var w = (Math.random() * (width/2) + (width/6));		// random width
-					rot = (Math.random() * 360);
-					$(this).css({
-						'width': w + 'px',
-						'position': 'absolute',
-						'top': y + 'px',
-						'left': x + 'px',
-						'transform': 'rotate(' + rot + 'deg)',
-						'-ms-transform': 'rotate(' + rot + 'deg)', 			//for Internet Explorer 9
-						'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-					});
-				});
-			
-				// jump-page (mostly in order, but scattered)
+				randomPlacementAndRotation("#header");
+				// randomPlacementAndRotation("#blogTitle");				// or, rotate and place separately from each other
+				// randomPlacementAndRotation("#blogDescription");
+				randomPlacementAndRotation("#search");
+				
+				// posts
+				randomWidth("article");
+				randomPlacementAndRotation("article");
+				
+				// current-page, jump-page
+				randomPlacementAndRotation("span.current-page");
 				var numPages = 0;
 				$("a.jump-page").each(function() {
 					numPages += 1;
 				});
-				$("a.jump-page").each(function(i) {
-					x = (Math.random() * width);
-					// y = (Math.random() * height);
-					y = (height / numPages) * i;
-					rot = (Math.random() * 360);
-					$(this).css({
-						'position': 'absolute',
-						'top': y + 'px',
-						'left': x + 'px',
-						'transform': 'rotate(' + rot + 'deg)',
-						'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-						'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-					});
-				});
-			
+				randomPlacementAndRotation("a.jump-page", true);
+				
+				// meta
+				randomPlacementAndRotation("div#tagResults");
+				randomPlacementAndRotation("div#searchResults");
+
 				// next page/previous (on permalink pages)
-				$(".next").each(function(i) {
-					x = (Math.random() * width);
-					y = (Math.random() * height);
-					rot = (Math.random() * 360);
-					$(this).css({
-						'position': 'absolute',
-						'top': y + 'px',
-						'left': x + 'px',
-						'transform': 'rotate(' + rot + 'deg)',
-						'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-						'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-					});
-				});
-				$(".prev").each(function(i) {
-					x = (Math.random() * width);
-					y = (Math.random() * height);
-					rot = (Math.random() * 360);
-					$(this).css({
-						'position': 'absolute',
-						'top': y + 'px',
-						'left': x + 'px',
-						'transform': 'rotate(' + rot + 'deg)',
-						'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-						'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-					});
-				});
-			
-				// current-page
-				x = (Math.random() * width);
-				y = (Math.random() * height);
-				rot = (Math.random() * 360);
-				$("span.current-page").css({
-					'position': 'absolute',
-					'top': y + 'px',
-					'left': x + 'px',
-					'transform': 'rotate(' + rot + 'deg)',
-					'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-					'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-				});				
-			});
-		
-			// tagResults
-			x = (Math.random() * width);
-			y = (Math.random() * height);
-			rot = (Math.random() * 360);
-			$("div#tagResults").css({
-				'position': 'absolute',
-				'top': y + 'px',
-				'left': x + 'px',
-				'transform': 'rotate(' + rot + 'deg)',
-				'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-			});
-			
-			// searchResults
-			x = (Math.random() * width);
-			y = (Math.random() * height);
-			rot = (Math.random() * 360);
-			$("div#searchResults").css({
-				'position': 'absolute',
-				'top': y + 'px',
-				'left': x + 'px',
-				'transform': 'rotate(' + rot + 'deg)',
-				'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-			});
-		
-			// like and reblog
-			x = (Math.random() * width);
-			y = (Math.random() * height);
-			rot = (Math.random() * 360);
-			$(".my-like").css({
-				'position': 'absolute',
-				'top': y + 'px',
-				'left': x + 'px',
-				'transform': 'rotate(' + rot + 'deg)',
-				'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-			});
-			$(".my-liked").css({
-				'position': 'absolute',
-				'top': y + 'px',
-				'left': x + 'px',
-				'transform': 'rotate(' + rot + 'deg)',
-				'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
-			});
-			$(".reblog").css({
-				'position': 'absolute',
-				'top': y + 'px',
-				'left': x + 'px',
-				'transform': 'rotate(' + rot + 'deg)',
-				'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
+				randomPlacementAndRotation(".next");
+				randomPlacementAndRotation(".prev");
+				
+				// like/reblog
+				randomPlacementAndRotation(".my-like");
+				randomPlacementAndRotation(".my-liked");
+				randomPlacementAndRotation(".reblog");
+				
+				// pages links
+				randomPlacementAndRotation(".pageLink");
 			});
 		</script>
 	
-		<!-- click and drag -->
+		<!-- CLICK && DRAG -->
 		<script>
 			$(function() {
-				$("article").draggable({ stack: "article" });
+				$("#header").draggable({ stack: "#header" });					// main page header
+				$("article").draggable({ stack: "article" });					// posts
+				$("#search").draggable({ stack: "#search" });					// search bar
+				$(".my-like").draggable({ stack: ".my-like" });				// like button
+				$(".my-liked").draggable({ stack: ".my-liked" });			// liked button
+				$(".reblog").draggable({ stack: ".reblog" });					// reblog
+				$(".pageLink").draggable({ stack: ".pageLink" });			// page links
+				$(".prev").draggable({ stack: ".prev" });							// page links
+				$(".next").draggable({ stack: ".next" });							// page links
 			});
 		</script>
 	
-		<!-- custom like button -->
+		<!-- CUSTOM LIKE BUTTONS -->
 		<script> window.onload = function () { document.body.insertAdjacentHTML( 'beforeEnd', '<iframe id="my-like-frame" style="display:none;"></iframe>' ); document.addEventListener( 'click', function ( event ) { var myLike = event.target; if( myLike.className.indexOf( 'my-like' ) > -1 ) { var frame = document.getElementById( 'my-like-frame' ), liked = ( myLike.className == 'my-liked' ), command = liked ? 'unlike' : 'like', reblog = myLike.getAttribute( 'data-reblog' ), id = myLike.getAttribute( 'data-id' ), oauth = reblog.slice( -8 ); frame.src = 'http://www.tumblr.com/' + command + '/' + oauth + '?id=' + id; liked ? myLike.className = 'my-like' : myLike.className = 'my-liked'; }; }, false ); }; </script>
 
 		<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -377,28 +361,23 @@
 
 	<body>
 	
-		<!-- HEADER -->
+		<!-- HEADER: BLOG TITLE && DESCRIPTION -->
 		<header id="header">
-		
-			<!-- BLOG TITLE, DESCRIPTION -->
-			<h1 id="blogTitle">
-				<a href="/">{Title}</a>
-			</h1>
-		
+			<h1 id="blogTitle"><a href="/">{Title}</a></h1>
 			{block:Description}
 				<div id="blogDescription">{Description}</div>
 			{/block:Description}
-		
-			<!-- SEARCH -->
-			<form id="search" action="/search" method="get">
-				<input type="text" placeholder="{lang:Search}" name="q" value="{SearchQuery}">
-				<input type="submit" value="{lang:Search}"> <!-- you can also remove this button and use the 'enter' key to submit -->
-			</form>
-		
-			<!-- RSS FEED -->
-			<!-- <a href="{RSS}">RSS</a> -->
 		</header>
+		
+		<!-- SEARCH -->
+		<div id="search">
+			<form action="/search" method="get">
+				<input type="text" placeholder=" {lang:Search}" name="q" value="{SearchQuery}">
+				<input id="submit" type="submit" value="{lang:Search}"> <!-- you can also remove this button and use the 'enter' key to submit -->
+			</form>
+		</div>
 	
+		<!-- PAGE CONTENTS -->
 		<section id="content">
 		
 			<!-- SEARCH RESULTS -->
@@ -415,16 +394,20 @@
 					<p>{lang:TagResultCount posts tagged Tag 3}</p>
 				</div>
 			{/block:TagPage}
+			
+			<!-- LINKS TO PAGES (if they have been created) -->
+			{block:HasPages}
+				<div id="pageLinks">
+				{block:Pages}
+				<ul>
+					<li class="pageLink"><a href="{URL}">{Label}</a></li>
+				</ul>
+				{/block:Pages}
+			{/block:HasPages}
 
-			<!-- POSTS (all kinds) -->
+			<!-- REGULAR POSTS (all kinds) -->
 			{block:Posts}
 			<article class="post {TagsAsClasses}">
-			
-				<!-- LIST POST DATE -->
-				<!-- {block:Date}
-					{block:NewDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:NewDayDate}
-					{block:SameDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:SameDayDate}
-				{/block:Date} -->
 			
 				<!-- TEXT POST -->
 				{block:Text}
@@ -524,11 +507,6 @@
 					{NoteCountWithLabel}: {PostNotes}
 				{/block:PostNotes}
 			
-				<!-- PERMALINK FOR POST -->
-				<!-- {block:IndexPage}
-					<p><a href="{Permalink}" class="permalink">{lang:Permalink}</a></p>
-				{/block:IndexPage} -->
-			
 				<!-- POST TAGS -->
 				{block:HasTags}
 				<div class="tags">
@@ -542,7 +520,7 @@
 			
 			</article>	   <!-- end individual post -->
 		
-				<!-- LIKE and REBLOG -->
+				<!-- LIKE && REBLOG -->
 				<div class="my-like" data-reblog="{ReblogURL}" data-id="{PostID}">&hearts;</div>
 				<a href="{ReblogURL}" class="reblog">&#10227;</a>
 			{/block:Posts} <!-- end posts -->
@@ -550,7 +528,7 @@
 			<!-- FOOTER -->		
 			<div id="footer">
 
-				<!-- PREVIOUS/NEXT POST-BY-POST -->
+				<!-- PREVIOUS/NEXT POST-BY-POST (on permalink pages only) -->
 				{block:PermalinkPagination}
 					<div class="pagination">
 						{block:PreviousPost}<span class="prev"><a href="{PreviousPost}">&larr; next post</a></span>{/block:PreviousPost}
@@ -558,10 +536,10 @@
 					</div>
 				{/block:PermalinkPagination}
 
-				<!-- PREVIOUS/NEXT PAGE OF POSTS -->
+				<!-- PREVIOUS/NEXT PAGE OF POSTS (on main page) -->
 				{block:Pagination}
 				<div class="pagination">			
-					{block:JumpPagination length="5000"}
+					{block:JumpPagination length="5000"}		<!-- lotsa pages, please -->
 						{block:CurrentPage}<span class="current-page">Current Page: {PageNumber}</span>{/block:CurrentPage}
 						{block:JumpPage}<a class="jump-page" href="{URL}">{PageNumber}</a>{/block:JumpPage}
 					{/block:JumpPagination}
@@ -569,8 +547,7 @@
 				{/block:Pagination}
 			
 			</div> <!-- end footer -->
-		
 		</section> <!-- end content-->
 
 	</body>
-	</html>
+</html>

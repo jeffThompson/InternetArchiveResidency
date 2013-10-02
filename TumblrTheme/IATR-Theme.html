@@ -5,6 +5,9 @@
 		"CLUSTER" TUMBLR THEME
 		Jeff Thompson | 2013 | www.jeffreythompson.org
 	
+		***NOTE: differs from the main 'Cluster' theme in name for tag posts***
+		
+	
 		A totally eff'd up Tumblr theme :)
 		
 		Randomly places and rotates (nearly) all page elements. Like and reblog buttons
@@ -15,8 +18,8 @@
 		+ It seems that videos don't work quite right...
 		+ Photosets will work, but will be a massive stack - better to post individually
 		
-		CSS
-		+ Insert custom CSS modifications after the theme CSS.
+		CUSTOM CSS
+		+ Insert custom CSS modifications in the Appearance editor, or after the theme CSS
 		
 		THANK YOU
 		+ Custom like button via:
@@ -30,6 +33,9 @@
 		+ Fix page width problems (keep everything onscreen horizontally)
 		+ Better test posts (more carefully curated)
 		+ How to release a Tumblr theme?
+		+ Fix video resize problems
+			- http://jsfiddle.net/QKQ2g
+		
 	-->
 
 	<head>		
@@ -124,7 +130,7 @@
 			article:hover {
 				opacity: 1.0;
 			}
-			article img {
+			article img, article iframe, article object {
 				width: 100%;
 				height: auto;
 			}
@@ -227,7 +233,8 @@
 				font-size: 48px;
 			}
 		
-			/* INSERT ANY CUSTOM CSS HERE! */
+			/* INSERT ANY CUSTOM CSS HERE! (or in the Appearance editor) */
+			{CustomCSS}
 		</style>
 
 		<!-- import JQuery and JQuery UI -->
@@ -383,7 +390,8 @@
 			<!-- TAG PAGE -->
 			{block:TagPage}
 				<div id="tagResults">
-					<p>{lang:TagResultCount posts tagged Tag 3}</p>
+					<!-- <p>{lang:TagResultCount posts tagged Tag 3}</p> -->
+					<p>{TagResultCount} posts contain the word <a>"{Tag}"</a></p>
 				</div>
 			{/block:TagPage}
 			

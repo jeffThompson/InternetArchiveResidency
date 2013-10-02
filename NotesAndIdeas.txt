@@ -4,6 +4,9 @@ NOTES AND IDEAS
 
 TO TRY:
 
++ Wander Bot
+		- seed text > first word > search > first result > first word > etc
+
 + text >> auto-summary >> search term >> text >> repeat
 		- start with the most-downloaded text
 
@@ -28,6 +31,15 @@ TO TRY:
 
 DESIGN IDEAS/THOUGHTS:
 
++ additions to Cluster theme
+		- keyboard shortcuts to trigger ultra-weirdness
+				R = randomize again
+				O = start all elements rotating
+				D = drop to bottom of screen
+				L = like all posts on page
+				
+				combinations of keys instead, like cheat codes?
+
 + grid of shows:
 		- intro post with title of idea, brief synopsis, link to search query if applicable
 		- each post a square image, then descriptive link below
@@ -38,8 +50,8 @@ DESIGN IDEAS/THOUGHTS:
 		- and overload of materials with endless scrolling
 		- rearrange if you scroll past?
 		- slowly rotating?
-		
-		<script>
+
+
 		
 
 - - - - - - - - 
@@ -68,6 +80,8 @@ CURATORIAL IDEAS/THOUGHTS:
 		- video with text?
 		- forms a kind of narrative?
 		- built from skeletal structure?
+
++ trawl usenet archives for bits, arrange as layered words with links to source
 
 - - - - - - - - 
 
