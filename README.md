@@ -1,9 +1,11 @@
 Internet Archive Residency
 ========================
 
-Working files and documentation for a curatorial residency with the [Internet Archive](http://www.archive.org), algorithmically-curating a series from the archive's collection.
+Working files and documentation for [a curatorial residency](http://jeff-thompson-iatr.tumblr.com/) with the [Internet Archive](http://www.archive.org), algorithmically-curating a series from the archive's collection.
 
-Using the oldest text in Project Guteberg...
+Using the 250-most-frequent unique words in the oldest text in [Project Gutenberg](http://archive.org/details/gutenberg), ["Old Mortality, Volume 2"](http://archive.org/details/mrt2w10) by Sir Walter Scott*, each word is used as a seed for a new search into the Archive. The Most common word in the resulting text is used as a new search term. The process is repeated until the search returns no results.
+
+**\* While likely not the oldest text, "Old Mortality" is the oldest text with a date listed.**
 
 ####Most Frequent Word Search  
 The main code used to create this project; loads the text, does the searching, and posts to Tumblr.
