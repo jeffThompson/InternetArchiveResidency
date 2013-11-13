@@ -1,0 +1,83 @@
+<html>
+<head>
+
+	<style>
+	
+		html, body {
+			font-family: Helvetica;
+			font-size: 24px;	
+		}
+
+		article {
+			margin: 100px auto auto 100px;
+			padding: 20px;
+			width: 300px;
+			background-color: rgb(0,200,255);
+		}
+		.unrotate {
+			text-align: right;
+		}
+		.unrotate a, .unrotate a:link, .unrotate a:hover, .unrotate a:visited {
+			text-decoration: none;
+			color: black;
+		}
+
+	</style>
+
+	<script src="jquery.js"></script>
+
+	<script>
+		$(document).ready( function() {
+			$('article').css ({
+				'transform': 'rotate(-24deg)',
+				'-ms-transform': 'rotate(-24deg)', 			// for Internet Explorer 9
+				'-webkit-transform': 'rotate(-24deg)' 		// for Safari/Chrome
+			});
+			
+			alert('rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')');
+		});
+	</script>
+
+</head>
+
+<body>
+
+	<article id="at">
+		<p>This is a test</p>
+		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+	</article>
+	
+	<article id="at">
+		<p>This is a test</p>
+		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+	</article>
+	
+	<article id="at">
+		<p>This is a test</p>
+		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+	</article>
+	
+	<script>		
+		$('.unrotate').click( function() {
+			$(this).parent().css ({
+				'transform': 'rotate(0deg)',
+				'-ms-transform': 'rotate(0deg)', 			// for Internet Explorer 9
+				'-webkit-transform': 'rotate(0deg)' 	// for Safari/Chrome
+			});
+		});
+		
+		$('*').each( function() {
+				$(this).css ({
+					'color': 'rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')'
+				});
+			});
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+

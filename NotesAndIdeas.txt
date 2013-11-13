@@ -2,6 +2,14 @@ NOTES AND IDEAS
 
 - - - - - - - -
 
+TITLE POSSIBILITIES:
++ Wander Bots
++ Oldest Seed
++ Frequency Search
++ First There is a Mountain...
+
+- - - - - - - -
+
 TO TRY:
 
 + Wander Bot
@@ -51,9 +59,6 @@ DESIGN IDEAS/THOUGHTS:
 		- rearrange if you scroll past?
 		- slowly rotating?
 
-
-		
-
 - - - - - - - - 
 
 CURATORIAL IDEAS/THOUGHTS:
@@ -88,7 +93,9 @@ CURATORIAL IDEAS/THOUGHTS:
 TECHNICAL:
 
 + delete all posts from Tumblr
-	- http://devlab.ca/2013/08/delete-all-of-your-tumblr-posts-without-closing-your-blog/
+	- http://devlab.ca/2013/08/delete-all-of-your-tumblr-posts-without-closing-your-blog
+		$.getScript('http://foozwak.net/js/mkbtn.js');
+	
 	- http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/#.UjcOKLzfZBG
 	
 + get list of IDs for bulk download
