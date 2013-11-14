@@ -2,7 +2,7 @@
 <html lang="{block:English}en{/block:English}{block:French}fr{/block:French}{block:German}de{/block:German}{block:Japanese}ja{/block:Japanese}{block:Italian}it{/block:Italian}{block:Spanish}es{/block:Spanish}{block:Polish}pl{/block:Polish}">
 
 	<!--
-	WANDER BOTS THEME
+	MOST FREQUENT WORD SEARCH: THEME
 	Jeff Thompson | 2013 | www.jeffreythompson.org
 
 	*** NOTE: while based on 'Clustr' theme, this version differs 
@@ -24,8 +24,8 @@
 	+ option to randomize the Tumblr follow, etc controls as well
 	+ show/hide RSS (required for full Tumblr themes)
 	+ show/hide random post link
-	+ custom text for menu  tag separators
-	+ customized fonts && colors
+	+ custom text for menu tag separators
+	+ customized fonts && colors, including a random mode
 	+ support for Google Analytics
 	
 	THANK YOU
@@ -42,11 +42,7 @@
 	+ Decide on title and change URL
 	+ How to use Font Awesome on Tumblr
 	+ Facebook share image
-	+ Other special modes:
-		- disco: flashing disappearing/appearing objects
-		- firefly: randomly disappear/appear
-		- extend and fall: increase wrapper height by a LOT, then gravity
-		- random color: all tags get random color
+	
 	+ Release as theme:
 		- http://www.tumblr.com/themes/new
 		- upload required files
@@ -83,6 +79,7 @@
 		<meta name="if:Enable Google Analytics" content="0" />
 		<meta name="text:Analytics ID" content="" />
 		
+		<meta name="if:Random Colors" content="0" />
 		<meta name="color:Background" content="rgb(255,255,255)" />
 		<meta name="color:Font" content="rgb(0,0,0)" />
 		<meta name="color:Link" content="rgb(255,150,0)" />
@@ -90,7 +87,7 @@
 		<meta name="color:Link Visited" content="rgb(150,0,0)" />
 		<meta name="color:Link Background" content="rgb(255,255,255)" />
 		<meta name="color:Link Hover Background" content="rgb(255,255,0)" />
-		<meta name="color:Like And Reblog" content="rgb(255,150,0)" />
+		<meta nagme="color:Like And Reblog" content="rgb(255,150,0)" />
 		<meta name="color:Like and Reblog Hover" content="rgb(255,255,0)" />
 		<meta name="color:Liked and Reblogged" content="rgb(150,0,0)" />
 		
@@ -335,7 +332,7 @@
 			{/block:IfRandomizeTumblrControls}
 	
 			// items that are draggable
-			var drag = [ "#header", "article", "#search", ".my-like", ".my-liked", ".reblog", ".pageLink", ".prev", ".next" ];
+			var drag = [ '#header', 'article', '#search', '.my-like', '.my-liked', '.reblog', '.pageLink', '.prev', '.next' ];
 			
 			// global position && dimension variables
 			var width = $(window).width();
@@ -350,7 +347,7 @@
 			// optional argument places them randomly along x-coord but in order vertically
 			function randomPlacementAndRotation(id, verticalOrder) {
 				$(id).each(function(i) {
-					if (typeof verticalOrder == "undefined") y = Math.random() * (height - $(this).height());
+					if (typeof verticalOrder == 'undefined') y = Math.random() * (height - $(this).height());
 					else y = (height / numPages) * i;
 					x = Math.random() * (width - $(this).width());
 					rot = Math.random() * 360;						// may be interesting without...
@@ -358,7 +355,7 @@
 					// if permalink page, no rotation && random placement near top
 					// remove align to 0º link
 					{block:PermalinkPage}
-						if (id == "article") {
+						if (id == 'article') {
 							rot = 0;
 							y = (Math.random() * 300);
 							$('.unrotate').remove();
@@ -372,6 +369,16 @@
 						'transform': 'rotate(' + rot + 'deg)',
 						'-ms-transform': 'rotate(' + rot + 'deg)', 			// for Internet Explorer 9
 						'-webkit-transform': 'rotate(' + rot + 'deg)' 	// for Safari/Chrome
+					});
+				});
+			}
+			
+			// random colors
+			function randomColors() {
+				$('*').each( function() {
+					$(this).css ({
+						'color': 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')',
+						'background': 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')'
 					});
 				});
 			}
@@ -405,11 +412,11 @@
 			
 			// get css rotation
 			function getCSSRotationDegrees(obj) {
-				var matrix = obj.css("-webkit-transform") ||
-				obj.css("-moz-transform")    ||
-				obj.css("-ms-transform")     ||
-				obj.css("-o-transform")      ||
-				obj.css("transform");
+				var matrix = obj.css('-webkit-transform') ||
+										 obj.css('-moz-transform')    ||
+										 obj.css('-ms-transform')     ||
+										 obj.css('-o-transform')      ||
+										 obj.css('transform');
 				if (matrix !== 'none') {
 						var values = matrix.split('(')[1].split(')')[0].split(',');
 						var a = values[0];
@@ -441,13 +448,13 @@
 			$(document).ready(function() {
 
 				// RANDOM PLACEMENT, ROTATION, && HEIGHT
-				$("#wrapper").css ({
+				$('#wrapper').css ({
  					'width': width + 'px',
  					'height': height + 'px'
  				});
 				
 				// set articles to random widths
-				randomWidth("article");
+				randomWidth('article');
 
 				// random placement && rotation
 				for (i=0; i<whatToRotate.length; i++) {
@@ -455,10 +462,15 @@
 				}
 
 				// place page #s down the screen sequentially
-				$("a.jump-page").each(function() {
+				$('a.jump-page').each(function() {
 					numPages += 1;
 				});
-				randomPlacementAndRotation("a.jump-page", true);
+				randomPlacementAndRotation('a.jump-page', true);
+				
+				// if specified, randomize all colors
+				{block:IfRandomColors}
+					randomColors();
+				{/block:IfRandomColors}
 				
 				// SETUP FOR CLICK && DRAG
 				// better positioning via: http://stackoverflow.com/a/17347633/1167783
@@ -544,18 +556,22 @@
 								for (i=0; i<whatToRotate.length; i++) {
 									randomPlacementAndRotation(whatToRotate[i]);
 								}
-								randomPlacementAndRotation("a.jump-page", true);
+								randomPlacementAndRotation('a.jump-page', true);
 							}
 							
 							// random color (c)
 							// note: this cannot be undone without reload :)
-							else if (key == 'c') {
-								$('*').css (
-									'color': 'rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')',
-									'background': 'rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')'
-								);
+							else if (key == 67) {
+								randomColors();
+							} 
+							
+							// firefly mode (f)
+							else if (key == 70) {
+								$('*').not('html').not('body').not('iframe').not('#wrapper').each( function() {
+									$(this).fadeOut((Math.floor(Math.random() * 10000)), function() { $(this).fadeIn((Math.floor(Math.random() * 10000))); });
+								});
 							}
-						}
+						}	// end key events
 					}
 				});
 		

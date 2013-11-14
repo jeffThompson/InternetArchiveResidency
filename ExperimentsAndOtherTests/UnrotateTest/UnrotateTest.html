@@ -28,13 +28,36 @@
 
 	<script>
 		$(document).ready( function() {
+		
+			$(document).keydown( function(event) {
+				var key = event.keyCode || event.which;
+				if (key == 13) event.preventDefault();
+				alert(key);	
+			});
+		
+			// rotate when loaded
 			$('article').css ({
 				'transform': 'rotate(-24deg)',
 				'-ms-transform': 'rotate(-24deg)', 			// for Internet Explorer 9
 				'-webkit-transform': 'rotate(-24deg)' 		// for Safari/Chrome
 			});
 			
-			alert('rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')');
+			// un-rotate when clicked
+			$('.unrotate').click( function() {
+				$(this).parent().css ({
+					'transform': 'rotate(0deg)',
+					'-ms-transform': 'rotate(0deg)', 			// for Internet Explorer 9
+					'-webkit-transform': 'rotate(0deg)' 	// for Safari/Chrome
+				});
+			});
+		
+			// random color of all items
+			$('*').each( function() {
+				$(this).css ({
+					'color': 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')',
+					'background': 'rgb(' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ',' + (Math.floor(Math.random() * 255)) + ')'
+				});
+			});
 		});
 	</script>
 
@@ -44,34 +67,18 @@
 
 	<article id="at">
 		<p>This is a test</p>
-		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+		<p class="unrotate"><a href="javascript:void(0)">O</a><p>
 	</article>
 	
 	<article id="at">
 		<p>This is a test</p>
-		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+		<p class="unrotate"><a href="javascript:void(0)">O</a><p>
 	</article>
 	
 	<article id="at">
 		<p>This is a test</p>
-		<p class="unrotate"><a href="javascript:void(0)">-</a><p>
+		<p class="unrotate"><a href="javascript:void(0)">O</a><p>
 	</article>
-	
-	<script>		
-		$('.unrotate').click( function() {
-			$(this).parent().css ({
-				'transform': 'rotate(0deg)',
-				'-ms-transform': 'rotate(0deg)', 			// for Internet Explorer 9
-				'-webkit-transform': 'rotate(0deg)' 	// for Safari/Chrome
-			});
-		});
-		
-		$('*').each( function() {
-				$(this).css ({
-					'color': 'rgb(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ')'
-				});
-			});
-	</script>
 
 </body>
 </html>
